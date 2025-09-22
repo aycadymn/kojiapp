@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buneyemek Partner - Atık Ekmek Toplama Uygulaması</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .elegant-title {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .icon-purple {
+            color: #5d08af;
+        }
+        
+        .bg-brand {
+            background-color: #5d08af;
+        }
+        
+        .text-brand {
+            color: #5d08af;
+        }
+        
+        .mobile-frame {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 40px;
+            padding: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #5d08af;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 8px 25px rgba(93, 8, 175, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .tab-active {
+            background: #5d08af;
+            color: white;
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring-circle {
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 125.6;
+            transition: stroke-dashoffset 0.35s;
+        }
+        
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                transform: translate3d(0,-15px,0);
+            }
+            70% {
+                transform: translate3d(0,-7px,0);
+            }
+            90% {
+                transform: translate3d(0,-2px,0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    
+    <!-- Mobile App Frame -->
+    <div class="mobile-frame mx-auto">
+        <div class="mobile-screen">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>🔋 100%</span>
+            </div>
+            
+            <!-- App Content -->
+            <div id="app-content" class="flex-1 bg-white overflow-hidden">
+                
+                <!-- Role Selection Screen -->
+                <div id="role-screen" class="h-full flex flex-col overflow-hidden">
+                    <!-- Header -->
+                    <div class="bg-gradient-to-br from-purple-600 to-blue-600 text-white p-6 pb-12">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-4xl">🍞</span>
+                            </div>
+                            <h1 class="text-2xl font-bold elegant-title mb-2">buneyemek</h1>
+                            <p class="text-purple-200">Atık ekmeği değere dönüştürüyoruz</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 p-6 -mt-8 overflow-y-auto">
+                        <!-- Role Selection Cards -->
+                        <div class="space-y-6">
+                            <div class="text-center mb-8">
+                                <h2 class="text-xl font-bold text-gray-800 mb-2">Nasıl katılmak istiyorsunuz?</h2>
+                                <p class="text-gray-600">Size uygun rolü seçin</p>
+                            </div>
+                            
+                            <!-- Business Role -->
+                            <div onclick="selectRole('business')" class="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all border-2 border-transparent hover:border-orange-200">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-3xl">🏪</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-800">İşletme Sahibiyim</h3>
+                                        <p class="text-sm text-gray-600">Atık ekmeklerimi vermek istiyorum</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-orange-50 rounded-xl p-4 mb-4">
+                                    <h4 class="font-semibold text-orange-800 mb-2">Avantajlarınız:</h4>
+                                    <ul class="text-sm text-orange-700 space-y-1">
+                                        <li>• Atık maliyetlerinizi azaltın</li>
+                                        <li>• Çevre dostu işletme olun</li>
+                                        <li>• Sosyal sorumluluk projelerine katılın</li>
+                                        <li>• Ücretsiz atık toplama hizmeti</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-500">Fırın, kafe, restoran, market</span>
+                                    <div class="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold">
+                                        Başla →
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Volunteer Role -->
+                            <div onclick="selectRole('volunteer')" class="bg-white rounded-2xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-all border-2 border-transparent hover:border-green-200">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                        <span class="text-3xl">🚴‍♂️</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-800">Gönüllü Toplayıcıyım</h3>
+                                        <p class="text-sm text-gray-600">Atık ekmekleri toplamak istiyorum</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-green-50 rounded-xl p-4 mb-4">
+                                    <h4 class="font-semibold text-green-800 mb-2">Avantajlarınız:</h4>
+                                    <ul class="text-sm text-green-700 space-y-1">
+                                        <li>• Her toplama için puan kazanın</li>
+                                        <li>• Puanlarla ödül alın</li>
+                                        <li>• Çevreye katkı sağlayın</li>
+                                        <li>• Esnek çalışma saatleri</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-500">Bireysel gönüllü, kurye</span>
+                                    <div class="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold">
+                                        Başla →
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Info Section -->
+                        <div class="mt-8 bg-blue-50 rounded-2xl p-6">
+                            <div class="text-center">
+                                <span class="text-3xl block mb-2">🌍</span>
+                                <h3 class="font-bold text-blue-800 mb-2">Birlikte Fark Yaratıyoruz</h3>
+                                <p class="text-sm text-blue-700">Her gün tonlarca ekmek çöpe gidiyor. Siz de bu döngüyü kırmaya yardım edin!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Home Screen -->
+                <div id="home-screen" class="h-full flex-col hidden overflow-hidden">
+                    <!-- Header -->
+                    <div class="bg-brand text-white p-6 pb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h1 class="text-xl font-bold elegant-title">Merhaba, Ahmet Bey!</h1>
+                                <p class="text-purple-200 text-sm">Café Aroma - Beşiktaş</p>
+                            </div>
+                            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">👨‍🍳</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Points Display -->
+                        <div class="bg-white/10 rounded-2xl p-4 backdrop-blur-sm">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-purple-200 text-sm">Toplam Puanınız</p>
+                                    <p class="text-3xl font-bold">2,847</p>
+                                </div>
+                                <div class="relative w-16 h-16">
+                                    <svg class="progress-ring w-16 h-16">
+                                        <circle class="progress-ring-circle stroke-white/30" stroke-width="4" fill="transparent" r="28" cx="32" cy="32"/>
+                                        <circle class="progress-ring-circle stroke-yellow-300" stroke-width="4" fill="transparent" r="28" cx="32" cy="32"/>
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <span class="text-xs font-bold">73%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="p-6 -mt-4 flex-1 overflow-y-auto">
+                        <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="icon-purple text-xl mr-2">⚡</span>
+                                Hızlı İşlemler
+                            </h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="showCollectionScreen()" class="bg-green-50 border border-green-200 rounded-xl p-4 text-center hover:bg-green-100 transition-colors">
+                                    <span class="text-2xl block mb-2">🍞</span>
+                                    <span class="text-sm font-semibold text-green-700">Ekmek Teslim Et</span>
+                                </button>
+                                <button onclick="showHistoryScreen()" class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center hover:bg-blue-100 transition-colors">
+                                    <span class="text-2xl block mb-2">📊</span>
+                                    <span class="text-sm font-semibold text-blue-700">Geçmiş</span>
+                                </button>
+                                <button onclick="showRewardsScreen()" class="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center hover:bg-purple-100 transition-colors">
+                                    <span class="text-2xl block mb-2">🎁</span>
+                                    <span class="text-sm font-semibold text-purple-700">Ödüller</span>
+                                </button>
+                                <button onclick="showMapScreen()" class="bg-orange-50 border border-orange-200 rounded-xl p-4 text-center hover:bg-orange-100 transition-colors">
+                                    <span class="text-2xl block mb-2">🗺️</span>
+                                    <span class="text-sm font-semibold text-orange-700">Harita</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Today's Stats -->
+                        <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="icon-purple text-xl mr-2">📈</span>
+                                Bugünkü Durum
+                            </h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600">12kg</div>
+                                    <div class="text-xs text-gray-500">Teslim Edilen</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-blue-600">+240</div>
+                                    <div class="text-xs text-gray-500">Kazanılan Puan</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-purple-600">14.4kg</div>
+                                    <div class="text-xs text-gray-500">CO2 Tasarrufu</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Activity -->
+                        <div class="bg-white rounded-2xl shadow-lg p-4">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="icon-purple text-xl mr-2">🕒</span>
+                                Son Aktiviteler
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <span class="text-green-600 mr-3">✅</span>
+                                        <div>
+                                            <p class="font-semibold text-sm">Ekmek Teslimi</p>
+                                            <p class="text-xs text-gray-500">8kg - 14:30</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-green-600 font-bold">+160p</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <span class="text-blue-600 mr-3">🎁</span>
+                                        <div>
+                                            <p class="font-semibold text-sm">Ödül Kullanımı</p>
+                                            <p class="text-xs text-gray-500">Kahve kuponu - 12:15</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-blue-600 font-bold">-500p</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Collection Screen -->
+                <div id="collection-screen" class="h-full flex-col hidden overflow-hidden">
+                    <!-- Header -->
+                    <div class="bg-green-600 text-white p-6 pb-8">
+                        <div class="flex items-center mb-4">
+                            <button onclick="showHomeScreen()" class="mr-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <h1 class="text-xl font-bold elegant-title">Ekmek Teslimi</h1>
+                        </div>
+                        <p class="text-green-200">Atık ekmeklerinizi kaydedin</p>
+                    </div>
+                    
+                    <div class="flex-1 p-6 -mt-4 overflow-y-auto">
+                        <!-- Weight Input -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4">Ekmek Ağırlığı</h3>
+                            <div class="text-center mb-4">
+                                <input type="number" id="weight-input" class="text-4xl font-bold text-center border-none outline-none w-full text-green-600" placeholder="0" max="100">
+                                <span class="text-2xl text-gray-500">kg</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 mb-4">
+                                <button onclick="setWeight(2)" class="bg-gray-100 p-3 rounded-lg text-center font-semibold hover:bg-gray-200">2kg</button>
+                                <button onclick="setWeight(5)" class="bg-gray-100 p-3 rounded-lg text-center font-semibold hover:bg-gray-200">5kg</button>
+                                <button onclick="setWeight(10)" class="bg-gray-100 p-3 rounded-lg text-center font-semibold hover:bg-gray-200">10kg</button>
+                                <button onclick="setWeight(15)" class="bg-gray-100 p-3 rounded-lg text-center font-semibold hover:bg-gray-200">15kg</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Bread Type -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4">Ekmek Türü</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="bread-type" value="white" class="mr-3">
+                                    <span>🍞 Beyaz Ekmek</span>
+                                </label>
+                                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="bread-type" value="whole" class="mr-3">
+                                    <span>🌾 Tam Buğday</span>
+                                </label>
+                                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="bread-type" value="rye" class="mr-3">
+                                    <span>🥖 Çavdar</span>
+                                </label>
+                                <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                                    <input type="radio" name="bread-type" value="mixed" class="mr-3">
+                                    <span>🥯 Karışık</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Expected Points -->
+                        <div class="bg-purple-50 rounded-2xl p-6 mb-6 border border-purple-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-purple-700 font-semibold">Kazanacağınız Puan</p>
+                                    <p class="text-sm text-purple-600">20 puan/kg</p>
+                                </div>
+                                <div class="text-3xl font-bold text-purple-600" id="expected-points">0</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button onclick="submitCollection()" class="w-full bg-green-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-green-700 transition-colors">
+                            Teslimi Kaydet
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- History Screen -->
+                <div id="history-screen" class="h-full flex-col hidden overflow-hidden">
+                    <div class="bg-blue-600 text-white p-6 pb-8">
+                        <div class="flex items-center mb-4">
+                            <button onclick="showHomeScreen()" class="mr-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <h1 class="text-xl font-bold elegant-title">Geçmiş</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 p-6 -mt-4 overflow-y-auto">
+                        <!-- Stats Cards -->
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-white rounded-xl shadow-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-blue-600">156kg</div>
+                                <div class="text-sm text-gray-500">Bu Ay Toplam</div>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-green-600">3,120</div>
+                                <div class="text-sm text-gray-500">Toplam Puan</div>
+                            </div>
+                        </div>
+                        
+                        <!-- History List -->
+                        <div class="bg-white rounded-2xl shadow-lg p-4">
+                            <h3 class="font-bold text-gray-800 mb-4">Son 30 Gün</h3>
+                            <div class="space-y-3 max-h-96 overflow-y-auto">
+                                <div class="flex items-center justify-between p-3 border-l-4 border-green-500 bg-green-50 rounded">
+                                    <div>
+                                        <p class="font-semibold text-sm">12kg Beyaz Ekmek</p>
+                                        <p class="text-xs text-gray-500">Bugün, 14:30</p>
+                                    </div>
+                                    <span class="text-green-600 font-bold">+240p</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 border-l-4 border-green-500 bg-green-50 rounded">
+                                    <div>
+                                        <p class="font-semibold text-sm">8kg Tam Buğday</p>
+                                        <p class="text-xs text-gray-500">Dün, 16:45</p>
+                                    </div>
+                                    <span class="text-green-600 font-bold">+160p</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 border-l-4 border-green-500 bg-green-50 rounded">
+                                    <div>
+                                        <p class="font-semibold text-sm">15kg Karışık</p>
+                                        <p class="text-xs text-gray-500">2 gün önce, 11:20</p>
+                                    </div>
+                                    <span class="text-green-600 font-bold">+300p</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 border-l-4 border-green-500 bg-green-50 rounded">
+                                    <div>
+                                        <p class="font-semibold text-sm">6kg Çavdar</p>
+                                        <p class="text-xs text-gray-500">3 gün önce, 09:15</p>
+                                    </div>
+                                    <span class="text-green-600 font-bold">+120p</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rewards Screen -->
+                <div id="rewards-screen" class="h-full flex-col hidden overflow-hidden">
+                    <div class="bg-purple-600 text-white p-6 pb-8">
+                        <div class="flex items-center mb-4">
+                            <button onclick="showHomeScreen()" class="mr-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <h1 class="text-xl font-bold elegant-title">Ödüller</h1>
+                        </div>
+                        <p class="text-purple-200">Puanlarınızla ödül kazanın</p>
+                    </div>
+                    
+                    <div class="flex-1 p-6 -mt-4 overflow-y-auto">
+                        <!-- Available Points -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6 text-center">
+                            <p class="text-gray-600 mb-2">Kullanılabilir Puan</p>
+                            <p class="text-4xl font-bold text-purple-600">2,847</p>
+                        </div>
+                        
+                        <!-- Rewards List -->
+                        <div class="space-y-4">
+                            <div class="bg-white rounded-2xl shadow-lg p-4 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <span class="text-3xl mr-4">☕</span>
+                                    <div>
+                                        <p class="font-semibold">Ücretsiz Kahve</p>
+                                        <p class="text-sm text-gray-500">Yerel kafelerden</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-orange-600">500p</p>
+                                    <button class="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600">Al</button>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-2xl shadow-lg p-4 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <span class="text-3xl mr-4">🍞</span>
+                                    <div>
+                                        <p class="font-semibold">buneyemek Ürünleri</p>
+                                        <p class="text-sm text-gray-500">%20 indirim</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-green-600">800p</p>
+                                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-600">Al</button>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-2xl shadow-lg p-4 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <span class="text-3xl mr-4">🌱</span>
+                                    <div>
+                                        <p class="font-semibold">Ağaç Dikimi</p>
+                                        <p class="text-sm text-gray-500">Adınıza ağaç</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-green-600">1,200p</p>
+                                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-600">Al</button>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-2xl shadow-lg p-4 flex items-center justify-between opacity-50">
+                                <div class="flex items-center">
+                                    <span class="text-3xl mr-4">🎁</span>
+                                    <div>
+                                        <p class="font-semibold">Özel Hediye Paketi</p>
+                                        <p class="text-sm text-gray-500">Fermente ürün seti</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-gray-400">3,000p</p>
+                                    <button class="bg-gray-300 text-gray-500 px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">Yetersiz</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map Screen -->
+                <div id="map-screen" class="h-full flex-col hidden overflow-hidden">
+                    <div class="bg-orange-600 text-white p-6 pb-8">
+                        <div class="flex items-center mb-4">
+                            <button onclick="showHomeScreen()" class="mr-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <h1 class="text-xl font-bold elegant-title">Ekmek Haritası</h1>
+                        </div>
+                        <p class="text-orange-200">Hazır ekmekleri keşfedin</p>
+                    </div>
+                    
+                    <div class="flex-1 p-6 -mt-4 overflow-y-auto">
+                        <!-- Alert Summary -->
+                        <div class="bg-red-50 border border-red-200 rounded-2xl p-4 mb-6">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <span class="text-red-500 text-2xl mr-3">🚨</span>
+                                    <div>
+                                        <p class="font-bold text-red-700">Acil Toplama</p>
+                                        <p class="text-sm text-red-600">3 firma ekmek hazır</p>
+                                    </div>
+                                </div>
+                                <button class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-semibold">
+                                    Hepsini Gör
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Map Container -->
+                        <div class="bg-white rounded-2xl shadow-lg mb-6 overflow-hidden">
+                            <div class="h-80 relative" style="background: linear-gradient(135deg, #e8f5e8 0%, #f0f8ff 30%, #fff8dc 60%, #f5f5dc 100%);">
+                                <!-- Street Grid Pattern -->
+                                <svg class="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 400 320">
+                                    <!-- Horizontal Streets -->
+                                    <line x1="0" y1="80" x2="400" y2="80" stroke="#666" stroke-width="2"/>
+                                    <line x1="0" y1="160" x2="400" y2="160" stroke="#666" stroke-width="3"/>
+                                    <line x1="0" y1="240" x2="400" y2="240" stroke="#666" stroke-width="2"/>
+                                    
+                                    <!-- Vertical Streets -->
+                                    <line x1="100" y1="0" x2="100" y2="320" stroke="#666" stroke-width="2"/>
+                                    <line x1="200" y1="0" x2="200" y2="320" stroke="#666" stroke-width="3"/>
+                                    <line x1="300" y1="0" x2="300" y2="320" stroke="#666" stroke-width="2"/>
+                                    
+                                    <!-- Buildings -->
+                                    <rect x="50" y="50" width="40" height="25" fill="#ddd" opacity="0.6"/>
+                                    <rect x="110" y="40" width="35" height="35" fill="#ddd" opacity="0.6"/>
+                                    <rect x="250" y="60" width="45" height="20" fill="#ddd" opacity="0.6"/>
+                                    <rect x="320" y="45" width="30" height="30" fill="#ddd" opacity="0.6"/>
+                                    
+                                    <rect x="60" y="180" width="35" height="30" fill="#ddd" opacity="0.6"/>
+                                    <rect x="150" y="190" width="40" height="25" fill="#ddd" opacity="0.6"/>
+                                    <rect x="280" y="185" width="35" height="35" fill="#ddd" opacity="0.6"/>
+                                    
+                                    <rect x="80" y="260" width="30" height="25" fill="#ddd" opacity="0.6"/>
+                                    <rect x="220" y="270" width="45" height="20" fill="#ddd" opacity="0.6"/>
+                                    <rect x="310" y="265" width="35" height="30" fill="#ddd" opacity="0.6"/>
+                                </svg>
+                                
+                                <!-- Park Areas -->
+                                <div class="absolute top-4 right-4 w-16 h-12 bg-green-200 rounded-lg opacity-40 flex items-center justify-center">
+                                    <span class="text-green-600 text-xs">🌳</span>
+                                </div>
+                                <div class="absolute bottom-8 left-8 w-20 h-16 bg-green-200 rounded-lg opacity-40 flex items-center justify-center">
+                                    <span class="text-green-600 text-sm">🌲</span>
+                                </div>
+                                
+                                <!-- Water Feature -->
+                                <div class="absolute top-1/2 left-1/4 w-24 h-3 bg-blue-200 rounded-full opacity-50 transform -translate-y-1/2"></div>
+                                
+                                <!-- Location Pins with Enhanced Design -->
+                                <div class="absolute top-12 left-16 group cursor-pointer">
+                                    <div class="relative">
+                                        <!-- Pin Shadow -->
+                                        <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-black opacity-20 rounded-full blur-sm"></div>
+                                        
+                                        <!-- Urgent Pin -->
+                                        <div class="bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold shadow-xl border-4 border-white animate-pulse">
+                                            🍞
+                                        </div>
+                                        
+                                        <!-- Ripple Effect -->
+                                        <div class="absolute inset-0 bg-red-400 rounded-full animate-ping opacity-30"></div>
+                                        
+                                        <!-- Info Popup -->
+                                        <div class="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white rounded-xl shadow-2xl p-3 min-w-max opacity-0 group-hover:opacity-100 transition-opacity border border-red-200">
+                                            <div class="text-center">
+                                                <p class="font-bold text-red-700 text-sm">Fırın Usta</p>
+                                                <p class="text-red-600 text-xs">15kg hazır!</p>
+                                                <p class="text-gray-500 text-xs">+300 puan</p>
+                                            </div>
+                                            <!-- Arrow -->
+                                            <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="absolute top-24 right-12 group cursor-pointer">
+                                    <div class="relative">
+                                        <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-black opacity-20 rounded-full blur-sm"></div>
+                                        
+                                        <div class="bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold shadow-xl border-4 border-white animate-pulse" style="animation-delay: 0.5s;">
+                                            ☕
+                                        </div>
+                                        
+                                        <div class="absolute inset-0 bg-red-400 rounded-full animate-ping opacity-30" style="animation-delay: 0.5s;"></div>
+                                        
+                                        <div class="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white rounded-xl shadow-2xl p-3 min-w-max opacity-0 group-hover:opacity-100 transition-opacity border border-red-200">
+                                            <div class="text-center">
+                                                <p class="font-bold text-red-700 text-sm">Café Latte</p>
+                                                <p class="text-red-600 text-xs">8kg hazır!</p>
+                                                <p class="text-gray-500 text-xs">+160 puan</p>
+                                            </div>
+                                            <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 group cursor-pointer">
+                                    <div class="relative">
+                                        <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-black opacity-20 rounded-full blur-sm"></div>
+                                        
+                                        <div class="bg-yellow-500 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold shadow-xl border-4 border-white animate-bounce">
+                                            🥯
+                                        </div>
+                                        
+                                        <div class="absolute inset-0 bg-yellow-400 rounded-full animate-ping opacity-20"></div>
+                                        
+                                        <div class="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white rounded-xl shadow-2xl p-3 min-w-max opacity-0 group-hover:opacity-100 transition-opacity border border-yellow-200">
+                                            <div class="text-center">
+                                                <p class="font-bold text-yellow-700 text-sm">Simit Sarayı</p>
+                                                <p class="text-yellow-600 text-xs">5kg yakında</p>
+                                                <p class="text-gray-500 text-xs">~100 puan</p>
+                                            </div>
+                                            <div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Additional Locations -->
+                                <div class="absolute top-1/2 left-8 group cursor-pointer">
+                                    <div class="relative">
+                                        <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-black opacity-20 rounded-full blur-sm"></div>
+                                        
+                                        <div class="bg-gray-400 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shadow-lg border-3 border-white">
+                                            🏪
+                                        </div>
+                                        
+                                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-xl p-2 min-w-max opacity-0 group-hover:opacity-100 transition-opacity text-xs">
+                                            <p class="font-bold text-gray-700">Market Plus</p>
+                                            <p class="text-gray-500">Henüz yok</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Your Location with Pulse Effect -->
+                                <div class="absolute bottom-12 right-16 group cursor-pointer">
+                                    <div class="relative">
+                                        <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-black opacity-20 rounded-full blur-sm"></div>
+                                        
+                                        <div class="bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold shadow-xl border-4 border-white relative">
+                                            📍
+                                            <!-- Pulse rings -->
+                                            <div class="absolute inset-0 bg-blue-400 rounded-full animate-ping opacity-40"></div>
+                                            <div class="absolute inset-0 bg-blue-300 rounded-full animate-ping opacity-20" style="animation-delay: 0.5s;"></div>
+                                        </div>
+                                        
+                                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-blue-50 rounded-lg shadow-xl p-2 min-w-max opacity-0 group-hover:opacity-100 transition-opacity border border-blue-200">
+                                            <p class="font-bold text-blue-700 text-sm">Konumunuz</p>
+                                            <p class="text-blue-600 text-xs">Beşiktaş</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Route Lines -->
+                                <svg class="absolute inset-0 w-full h-full pointer-events-none">
+                                    <!-- Route to nearest urgent location -->
+                                    <path d="M 280 300 Q 200 250 80 60" stroke="#3b82f6" stroke-width="3" fill="none" stroke-dasharray="8,4" opacity="0.6"/>
+                                    <path d="M 280 300 Q 320 200 320 120" stroke="#3b82f6" stroke-width="3" fill="none" stroke-dasharray="8,4" opacity="0.6"/>
+                                </svg>
+                                
+                                <!-- Distance Labels -->
+                                <div class="absolute top-20 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                                    0.8km
+                                </div>
+                                <div class="absolute top-1/2 right-8 transform -translate-y-1/2 bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                                    1.2km
+                                </div>
+                            </div>
+                            
+                            <!-- Map Controls -->
+                            <div class="p-4 bg-gray-50 flex justify-between items-center">
+                                <div class="flex space-x-2">
+                                    <button class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        🚨 Acil (2)
+                                    </button>
+                                    <button class="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        ⏰ Yakında (1)
+                                    </button>
+                                    <button class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        ✅ Hazır (0)
+                                    </button>
+                                </div>
+                                <button class="text-gray-600 text-sm">🔄 Yenile</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Nearby Alerts List -->
+                        <div class="bg-white rounded-2xl shadow-lg p-4">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-orange-600 mr-2">📍</span>
+                                Yakındaki Firmalar
+                            </h3>
+                            
+                            <div class="space-y-3">
+                                <!-- Urgent Alert -->
+                                <div class="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center">
+                                            <span class="text-red-500 mr-2">🚨</span>
+                                            <div>
+                                                <p class="font-bold text-red-700">Fırın Usta</p>
+                                                <p class="text-sm text-red-600">Beşiktaş • 0.8 km</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-bold text-red-700">15kg</p>
+                                            <p class="text-xs text-red-600">2 saat önce</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-semibold flex-1">
+                                            📞 Ara
+                                        </button>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold flex-1">
+                                            🗺️ Yol Tarifi
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Another Urgent Alert -->
+                                <div class="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center">
+                                            <span class="text-red-500 mr-2">🚨</span>
+                                            <div>
+                                                <p class="font-bold text-red-700">Café Latte</p>
+                                                <p class="text-sm text-red-600">Şişli • 1.2 km</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-bold text-red-700">8kg</p>
+                                            <p class="text-xs text-red-600">1 saat önce</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-semibold flex-1">
+                                            📞 Ara
+                                        </button>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold flex-1">
+                                            🗺️ Yol Tarifi
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Upcoming Alert -->
+                                <div class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded-r-lg">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center">
+                                            <span class="text-yellow-600 mr-2">⏰</span>
+                                            <div>
+                                                <p class="font-bold text-yellow-700">Simit Sarayı</p>
+                                                <p class="text-sm text-yellow-600">Taksim • 2.1 km</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-bold text-yellow-700">~5kg</p>
+                                            <p class="text-xs text-yellow-600">2 saat içinde</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg text-sm font-semibold flex-1">
+                                            🔔 Hatırlat
+                                        </button>
+                                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold flex-1">
+                                            🗺️ Yol Tarifi
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Normal Status -->
+                                <div class="border-l-4 border-gray-300 bg-gray-50 p-4 rounded-r-lg">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <span class="text-gray-500 mr-2">🏪</span>
+                                            <div>
+                                                <p class="font-bold text-gray-700">Pastane Güzel</p>
+                                                <p class="text-sm text-gray-600">Kadıköy • 3.5 km</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm text-gray-600">Henüz ekmek yok</p>
+                                            <p class="text-xs text-gray-500">Son: dün</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Business Dashboard Screen -->
+                <div id="business-screen" class="h-full flex-col hidden overflow-hidden">
+                    <!-- Header -->
+                    <div class="bg-orange-600 text-white p-6 pb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h1 class="text-xl font-bold elegant-title">Merhaba, Fırın Usta!</h1>
+                                <p class="text-orange-200 text-sm">İşletme Paneli</p>
+                            </div>
+                            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                                <span class="text-2xl">🏪</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Status Display -->
+                        <div class="bg-white/10 rounded-2xl p-4 backdrop-blur-sm">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-orange-200 text-sm">Bu Ay Verilen Ekmek</p>
+                                    <p class="text-3xl font-bold">247kg</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-orange-200 text-sm">CO2 Tasarrufu</p>
+                                    <p class="text-2xl font-bold">296kg</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 p-6 -mt-4 overflow-y-auto">
+                        <!-- Quick Actions for Business -->
+                        <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-orange-600 text-xl mr-2">⚡</span>
+                                Hızlı İşlemler
+                            </h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="showBreadNotification()" class="bg-red-50 border border-red-200 rounded-xl p-4 text-center hover:bg-red-100 transition-colors">
+                                    <span class="text-2xl block mb-2">🚨</span>
+                                    <span class="text-sm font-semibold text-red-700">Ekmek Hazır</span>
+                                </button>
+                                <button onclick="showSchedulePickup()" class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center hover:bg-blue-100 transition-colors">
+                                    <span class="text-2xl block mb-2">📅</span>
+                                    <span class="text-sm font-semibold text-blue-700">Toplama Planla</span>
+                                </button>
+                                <button onclick="showBusinessHistory()" class="bg-green-50 border border-green-200 rounded-xl p-4 text-center hover:bg-green-100 transition-colors">
+                                    <span class="text-2xl block mb-2">📊</span>
+                                    <span class="text-sm font-semibold text-green-700">Geçmiş</span>
+                                </button>
+                                <button onclick="showBusinessSettings()" class="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center hover:bg-purple-100 transition-colors">
+                                    <span class="text-2xl block mb-2">⚙️</span>
+                                    <span class="text-sm font-semibold text-purple-700">Ayarlar</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Current Status -->
+                        <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-orange-600 text-xl mr-2">📋</span>
+                                Mevcut Durum
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <span class="text-green-600 mr-3">✅</span>
+                                        <div>
+                                            <p class="font-semibold text-sm">Son Toplama</p>
+                                            <p class="text-xs text-gray-500">15kg - Bugün 14:30</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-green-600 font-bold">Tamamlandı</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <span class="text-yellow-600 mr-3">⏰</span>
+                                        <div>
+                                            <p class="font-semibold text-sm">Bekleyen Ekmek</p>
+                                            <p class="text-xs text-gray-500">~8kg - Yarın sabah</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-yellow-600 font-bold">Planlandı</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Weekly Stats -->
+                        <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-orange-600 text-xl mr-2">📈</span>
+                                Bu Hafta
+                            </h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-orange-600">47kg</div>
+                                    <div class="text-xs text-gray-500">Verilen Ekmek</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600">12</div>
+                                    <div class="text-xs text-gray-500">Toplama Sayısı</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-blue-600">56kg</div>
+                                    <div class="text-xs text-gray-500">CO2 Tasarrufu</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pickup Schedule -->
+                        <div class="bg-white rounded-2xl shadow-lg p-4">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-orange-600 text-xl mr-2">🚚</span>
+                                Toplama Programı
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <div>
+                                        <p class="font-semibold text-sm">Pazartesi - Çarşamba - Cuma</p>
+                                        <p class="text-xs text-gray-500">Sabah 09:00 - 11:00</p>
+                                    </div>
+                                    <button class="text-blue-600 text-sm font-semibold">Düzenle</button>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <p class="font-semibold text-sm">Acil Toplama</p>
+                                        <p class="text-xs text-gray-500">İhtiyaç halinde 24/7</p>
+                                    </div>
+                                    <button class="bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-semibold">Çağır</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impact Screen -->
+                <div id="impact-screen" class="h-full flex-col hidden">
+                    <div class="bg-green-600 text-white p-6 pb-8">
+                        <div class="flex items-center mb-4">
+                            <button onclick="showHomeScreen()" class="mr-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <h1 class="text-xl font-bold elegant-title">Çevresel Etkimiz</h1>
+                        </div>
+                        <p class="text-green-200">Birlikte yarattığımız değişim</p>
+                    </div>
+                    
+                    <div class="flex-1 p-6 -mt-4 overflow-y-auto">
+                        <!-- Personal Impact -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-green-600 mr-2">🌱</span>
+                                Sizin Katkınız
+                            </h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center p-4 bg-green-50 rounded-xl">
+                                    <div class="text-2xl font-bold text-green-600">156kg</div>
+                                    <div class="text-sm text-gray-600">Kurtarılan Ekmek</div>
+                                </div>
+                                <div class="text-center p-4 bg-blue-50 rounded-xl">
+                                    <div class="text-2xl font-bold text-blue-600">187kg</div>
+                                    <div class="text-sm text-gray-600">CO2 Tasarrufu</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Community Impact -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-purple-600 mr-2">🤝</span>
+                                Toplumsal Etki
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                    <span class="text-sm">Bu ay toplanan ekmek</span>
+                                    <span class="font-bold text-purple-600">2.4 ton</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <span class="text-sm">Önlenen CO2 salımı</span>
+                                    <span class="font-bold text-green-600">2.88 ton</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <span class="text-sm">Aktif partner sayısı</span>
+                                    <span class="font-bold text-blue-600">47</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Achievement Badges -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-yellow-600 mr-2">🏆</span>
+                                Başarı Rozetleri
+                            </h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="text-center p-3 bg-yellow-50 rounded-xl">
+                                    <span class="text-2xl block mb-2">🥉</span>
+                                    <span class="text-xs font-semibold">İlk 100kg</span>
+                                </div>
+                                <div class="text-center p-3 bg-gray-50 rounded-xl opacity-50">
+                                    <span class="text-2xl block mb-2">🥈</span>
+                                    <span class="text-xs font-semibold">500kg Hedefi</span>
+                                </div>
+                                <div class="text-center p-3 bg-gray-50 rounded-xl opacity-50">
+                                    <span class="text-2xl block mb-2">🥇</span>
+                                    <span class="text-xs font-semibold">1 Ton Hedefi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Navigation -->
+            <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+                <div class="flex justify-around">
+                    <button onclick="showHomeScreen()" class="flex flex-col items-center p-2 tab-active rounded-lg">
+                        <span class="text-xl mb-1">🏠</span>
+                        <span class="text-xs font-semibold">Ana Sayfa</span>
+                    </button>
+                    <button onclick="showCollectionScreen()" class="flex flex-col items-center p-2 text-gray-500 hover:text-purple-600">
+                        <span class="text-xl mb-1">🍞</span>
+                        <span class="text-xs font-semibold">Teslim</span>
+                    </button>
+                    <button onclick="showHistoryScreen()" class="flex flex-col items-center p-2 text-gray-500 hover:text-purple-600">
+                        <span class="text-xl mb-1">📊</span>
+                        <span class="text-xs font-semibold">Geçmiş</span>
+                    </button>
+                    <button onclick="showRewardsScreen()" class="flex flex-col items-center p-2 text-gray-500 hover:text-purple-600">
+                        <span class="text-xl mb-1">🎁</span>
+                        <span class="text-xs font-semibold">Ödüller</span>
+                    </button>
+                    <button onclick="showMapScreen()" class="flex flex-col items-center p-2 text-gray-500 hover:text-purple-600">
+                        <span class="text-xl mb-1">🗺️</span>
+                        <span class="text-xs font-semibold">Harita</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-2xl p-8 mx-4 text-center max-w-sm">
+            <div class="text-6xl mb-4 bounce">🎉</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Tebrikler!</h3>
+            <p class="text-gray-600 mb-4">Ekmek tesliminiz başarıyla kaydedildi.</p>
+            <div class="bg-green-50 rounded-xl p-4 mb-4">
+                <p class="text-green-700 font-semibold" id="earned-points">+240 puan kazandınız!</p>
+            </div>
+            <button onclick="closeSuccessModal()" class="w-full bg-brand text-white py-3 rounded-xl font-semibold">Tamam</button>
+        </div>
+    </div>
+
+    <script>
+        // Role selection function
+        function selectRole(role) {
+            if (role === 'business') {
+                showBusinessScreen();
+            } else if (role === 'volunteer') {
+                showHomeScreen();
+            }
+        }
+        
+        // Screen navigation functions
+        function showRoleScreen() {
+            hideAllScreens();
+            document.getElementById('role-screen').classList.remove('hidden');
+            document.getElementById('role-screen').classList.add('flex');
+        }
+        
+        function showBusinessScreen() {
+            hideAllScreens();
+            document.getElementById('business-screen').classList.remove('hidden');
+            document.getElementById('business-screen').classList.add('flex');
+            updateTabActive('business');
+        }
+        
+        function showHomeScreen() {
+            hideAllScreens();
+            document.getElementById('home-screen').classList.remove('hidden');
+            document.getElementById('home-screen').classList.add('flex');
+            updateTabActive('home');
+        }
+        
+        function showCollectionScreen() {
+            hideAllScreens();
+            document.getElementById('collection-screen').classList.remove('hidden');
+            document.getElementById('collection-screen').classList.add('flex');
+            updateTabActive('collection');
+        }
+        
+        function showHistoryScreen() {
+            hideAllScreens();
+            document.getElementById('history-screen').classList.remove('hidden');
+            document.getElementById('history-screen').classList.add('flex');
+            updateTabActive('history');
+        }
+        
+        function showRewardsScreen() {
+            hideAllScreens();
+            document.getElementById('rewards-screen').classList.remove('hidden');
+            document.getElementById('rewards-screen').classList.add('flex');
+            updateTabActive('rewards');
+        }
+        
+        function showMapScreen() {
+            hideAllScreens();
+            document.getElementById('map-screen').classList.remove('hidden');
+            document.getElementById('map-screen').classList.add('flex');
+            updateTabActive('map');
+        }
+        
+        function showImpactScreen() {
+            hideAllScreens();
+            document.getElementById('impact-screen').classList.remove('hidden');
+            document.getElementById('impact-screen').classList.add('flex');
+            updateTabActive('impact');
+        }
+        
+        function hideAllScreens() {
+            const screens = ['role-screen', 'home-screen', 'business-screen', 'collection-screen', 'history-screen', 'rewards-screen', 'map-screen', 'impact-screen'];
+            screens.forEach(screen => {
+                document.getElementById(screen).classList.add('hidden');
+                document.getElementById(screen).classList.remove('flex');
+            });
+        }
+        
+        // Business functions
+        function showBreadNotification() {
+            alert('Ekmek hazır bildirimi gönderildi! Gönüllüler bilgilendirilecek.');
+        }
+        
+        function showSchedulePickup() {
+            alert('Toplama planlama özelliği yakında eklenecek.');
+        }
+        
+        function showBusinessHistory() {
+            alert('İşletme geçmişi özelliği yakında eklenecek.');
+        }
+        
+        function showBusinessSettings() {
+            alert('İşletme ayarları özelliği yakında eklenecek.');
+        }
+        
+        function updateTabActive(activeTab) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-active').forEach(tab => {
+                tab.classList.remove('tab-active');
+                tab.classList.add('text-gray-500');
+            });
+            
+            // Add active class to current tab (simplified for demo)
+            if (activeTab === 'home') {
+                document.querySelector('button[onclick="showHomeScreen()"]').classList.add('tab-active');
+                document.querySelector('button[onclick="showHomeScreen()"]').classList.remove('text-gray-500');
+            }
+        }
+        
+        // Weight input functions
+        function setWeight(weight) {
+            document.getElementById('weight-input').value = weight;
+            updateExpectedPoints();
+        }
+        
+        function updateExpectedPoints() {
+            const weight = document.getElementById('weight-input').value || 0;
+            const points = weight * 20;
+            document.getElementById('expected-points').textContent = points;
+        }
+        
+        // Collection submission
+        function submitCollection() {
+            const weight = document.getElementById('weight-input').value;
+            const breadType = document.querySelector('input[name="bread-type"]:checked');
+            
+            if (!weight || weight <= 0) {
+                alert('Lütfen geçerli bir ağırlık girin.');
+                return;
+            }
+            
+            if (!breadType) {
+                alert('Lütfen ekmek türünü seçin.');
+                return;
+            }
+            
+            const points = weight * 20;
+            document.getElementById('earned-points').textContent = `+${points} puan kazandınız!`;
+            document.getElementById('success-modal').classList.remove('hidden');
+            
+            // Reset form
+            document.getElementById('weight-input').value = '';
+            document.getElementById('expected-points').textContent = '0';
+            document.querySelectorAll('input[name="bread-type"]').forEach(input => input.checked = false);
+        }
+        
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+            showHomeScreen();
+        }
+        
+        // Weight input event listener
+        document.getElementById('weight-input').addEventListener('input', updateExpectedPoints);
+        
+        // Initialize app
+        showRoleScreen();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9834b4830451d621',t:'MTc1ODU3NDU0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
