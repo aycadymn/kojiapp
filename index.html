@@ -288,37 +288,37 @@
             background: transparent;
         }
         
-        /* Voice Assistant Styles */
-        .voice-assistant {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+        /* Voice Assistant Styles (Mobile Screen) */
+        .voice-assistant-mobile {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            font-size: 20px;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 1000;
         }
         
-        .voice-assistant:hover {
+        .voice-assistant-mobile:hover {
             transform: scale(1.1);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
         }
         
-        .voice-assistant.listening {
+        .voice-assistant-mobile.listening {
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
             animation: pulse-voice 1.5s infinite;
         }
         
-        .voice-assistant.processing {
+        .voice-assistant-mobile.processing {
             background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%);
             animation: spin 1s linear infinite;
         }
@@ -343,16 +343,16 @@
             to { transform: rotate(360deg); }
         }
         
-        /* Voice Status Indicator */
-        .voice-status {
-            position: fixed;
-            bottom: 170px;
-            right: 30px;
+        /* Voice Status Indicator (Mobile Screen) */
+        .voice-status-mobile {
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
             background: rgba(0, 0, 0, 0.8);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 11px;
             font-weight: 600;
             opacity: 0;
             transform: translateY(10px);
@@ -361,21 +361,21 @@
             backdrop-filter: blur(10px);
         }
         
-        .voice-status.show {
+        .voice-status-mobile.show {
             opacity: 1;
             transform: translateY(0);
         }
         
-        /* Voice Commands Help */
-        .voice-help {
-            position: fixed;
-            bottom: 170px;
-            right: 100px;
+        /* Voice Commands Help (Mobile Screen) */
+        .voice-help-mobile {
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
             background: white;
-            border-radius: 15px;
-            padding: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 250px;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            max-width: 200px;
             opacity: 0;
             transform: translateX(20px);
             transition: all 0.3s ease;
@@ -383,38 +383,747 @@
             border: 2px solid #667eea;
         }
         
-        .voice-help.show {
+        .voice-help-mobile.show {
             opacity: 1;
             transform: translateX(0);
         }
         
-        .voice-help h4 {
+        .voice-help-mobile h4 {
             color: #667eea;
             font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 14px;
+            margin-bottom: 6px;
+            font-size: 12px;
         }
         
-        .voice-help ul {
+        .voice-help-mobile ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
         
-        .voice-help li {
-            padding: 4px 0;
-            font-size: 12px;
+        .voice-help-mobile li {
+            padding: 3px 0;
+            font-size: 10px;
             color: #666;
             border-bottom: 1px solid #f0f0f0;
         }
         
-        .voice-help li:last-child {
+        .voice-help-mobile li:last-child {
             border-bottom: none;
         }
         
-        .voice-help li:before {
+        .voice-help-mobile li:before {
             content: "🎤";
-            margin-right: 8px;
+            margin-right: 6px;
+        }
+        
+        /* 3D Koji Animation */
+        .koji-3d {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            position: relative;
+            animation: koji-float 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .koji-3d:hover {
+            transform: scale(1.1);
+        }
+        
+        .koji-3d:hover .koji-mouth {
+            animation: koji-hover-smile 0.5s ease-in-out forwards;
+        }
+        
+        .koji-3d:hover .koji-eye {
+            animation: koji-blink 0.3s ease-in-out;
+        }
+        
+        .koji-body {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 10px 20px rgba(139, 69, 19, 0.3),
+                inset -5px -5px 10px rgba(0, 0, 0, 0.2),
+                inset 5px 5px 10px rgba(255, 255, 255, 0.3);
+            animation: koji-bounce 2s ease-in-out infinite;
+        }
+        
+        .koji-eyes {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+        
+        .koji-eye {
+            width: 12px;
+            height: 12px;
+            background: #000;
+            border-radius: 50%;
+            position: relative;
+            animation: koji-blink 4s infinite;
+        }
+        
+        .koji-eye::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .koji-mouth {
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 10px;
+            border: 2px solid #000;
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            animation: koji-smile 3s ease-in-out infinite;
+        }
+        
+        .koji-spots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
+        .koji-spot {
+            position: absolute;
+            background: rgba(160, 82, 45, 0.6);
+            border-radius: 50%;
+            animation: koji-spots-pulse 2.5s ease-in-out infinite;
+        }
+        
+        .koji-spot:nth-child(1) {
+            width: 8px;
+            height: 8px;
+            top: 15px;
+            left: 20px;
+            animation-delay: 0s;
+        }
+        
+        .koji-spot:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            top: 35px;
+            right: 15px;
+            animation-delay: 0.5s;
+        }
+        
+        .koji-spot:nth-child(3) {
+            width: 7px;
+            height: 7px;
+            bottom: 20px;
+            left: 25px;
+            animation-delay: 1s;
+        }
+        
+        .koji-spot:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            bottom: 30px;
+            right: 25px;
+            animation-delay: 1.5s;
+        }
+        
+        .koji-glow {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: radial-gradient(circle, rgba(139, 69, 19, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: koji-glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes koji-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        
+        @keyframes koji-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes koji-blink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+        
+        @keyframes koji-smile {
+            0%, 100% { transform: translateX(-50%) scaleX(1); }
+            50% { transform: translateX(-50%) scaleX(1.2); }
+        }
+        
+        @keyframes koji-hover-smile {
+            0% { transform: translateX(-50%) scaleX(1) scaleY(1); }
+            100% { transform: translateX(-50%) scaleX(1.5) scaleY(1.3); }
+        }
+        
+        @keyframes koji-spots-pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.2); }
+        }
+        
+        @keyframes koji-glow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+        
+        .koji-sparkles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .koji-sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: koji-sparkle 2s ease-in-out infinite;
+        }
+        
+        .koji-sparkle:nth-child(1) {
+            top: 10px;
+            left: 10px;
+            animation-delay: 0s;
+        }
+        
+        .koji-sparkle:nth-child(2) {
+            top: 20px;
+            right: 10px;
+            animation-delay: 0.5s;
+        }
+        
+        .koji-sparkle:nth-child(3) {
+            bottom: 15px;
+            left: 15px;
+            animation-delay: 1s;
+        }
+        
+        .koji-sparkle:nth-child(4) {
+            bottom: 25px;
+            right: 20px;
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes koji-sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        
+        /* Small Koji Styles */
+        .koji-3d-small {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            position: relative;
+            animation: koji-float 4s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .koji-3d-small:hover {
+            transform: scale(1.15);
+        }
+        
+        .koji-3d-small:hover .koji-mouth-small {
+            animation: koji-hover-smile 0.4s ease-in-out forwards;
+        }
+        
+        .koji-3d-small:hover .koji-eye-small {
+            animation: koji-blink 0.25s ease-in-out;
+        }
+        
+        .koji-body-small {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #A0522D 0%, #D2691E 50%, #DEB887 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 5px 10px rgba(139, 69, 19, 0.3),
+                inset -3px -3px 6px rgba(0, 0, 0, 0.2),
+                inset 3px 3px 6px rgba(255, 255, 255, 0.3);
+            animation: koji-bounce 2.5s ease-in-out infinite;
+        }
+        
+        .koji-eyes-small {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .koji-eye-small {
+            width: 6px;
+            height: 6px;
+            background: #000;
+            border-radius: 50%;
+            position: relative;
+            animation: koji-blink 5s infinite;
+        }
+        
+        .koji-eye-small::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .koji-mouth-small {
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 5px;
+            border: 1px solid #000;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            animation: koji-smile 3.5s ease-in-out infinite;
+        }
+        
+        .koji-spots-small {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
+        .koji-spot-small {
+            position: absolute;
+            background: rgba(160, 82, 45, 0.6);
+            border-radius: 50%;
+            animation: koji-spots-pulse 3s ease-in-out infinite;
+        }
+        
+        .koji-spot-small:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            top: 8px;
+            left: 10px;
+            animation-delay: 0s;
+        }
+        
+        .koji-spot-small:nth-child(2) {
+            width: 3px;
+            height: 3px;
+            bottom: 12px;
+            right: 8px;
+            animation-delay: 1s;
+        }
+        
+        .koji-glow-small {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: radial-gradient(circle, rgba(139, 69, 19, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: koji-glow 2.5s ease-in-out infinite alternate;
+        }
+        
+        .koji-sparkles-small {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .koji-sparkle-small {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: koji-sparkle 2.5s ease-in-out infinite;
+        }
+        
+        .koji-sparkle-small:nth-child(1) {
+            top: 5px;
+            left: 5px;
+            animation-delay: 0s;
+        }
+        
+        .koji-sparkle-small:nth-child(2) {
+            bottom: 8px;
+            right: 6px;
+            animation-delay: 1s;
+        }
+        
+        /* Medium Koji Styles */
+        .koji-3d-medium {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto;
+            position: relative;
+            animation: koji-float 3.5s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .koji-3d-medium:hover {
+            transform: scale(1.12);
+        }
+        
+        .koji-3d-medium:hover .koji-mouth-medium {
+            animation: koji-hover-smile 0.45s ease-in-out forwards;
+        }
+        
+        .koji-3d-medium:hover .koji-eye-medium {
+            animation: koji-blink 0.3s ease-in-out;
+        }
+        
+        .koji-body-medium {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B4513 0%, #CD853F 50%, #F4A460 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 8px 15px rgba(139, 69, 19, 0.3),
+                inset -4px -4px 8px rgba(0, 0, 0, 0.2),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.3);
+            animation: koji-bounce 2.2s ease-in-out infinite;
+        }
+        
+        .koji-eyes-medium {
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .koji-eye-medium {
+            width: 8px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+            position: relative;
+            animation: koji-blink 4.5s infinite;
+        }
+        
+        .koji-eye-medium::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .koji-mouth-medium {
+            position: absolute;
+            top: 34px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 7px;
+            border: 2px solid #000;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            animation: koji-smile 3.2s ease-in-out infinite;
+        }
+        
+        .koji-spots-medium {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
+        .koji-spot-medium {
+            position: absolute;
+            background: rgba(160, 82, 45, 0.6);
+            border-radius: 50%;
+            animation: koji-spots-pulse 2.8s ease-in-out infinite;
+        }
+        
+        .koji-spot-medium:nth-child(1) {
+            width: 6px;
+            height: 6px;
+            top: 12px;
+            left: 15px;
+            animation-delay: 0s;
+        }
+        
+        .koji-spot-medium:nth-child(2) {
+            width: 4px;
+            height: 4px;
+            top: 25px;
+            right: 12px;
+            animation-delay: 0.7s;
+        }
+        
+        .koji-spot-medium:nth-child(3) {
+            width: 5px;
+            height: 5px;
+            bottom: 15px;
+            left: 18px;
+            animation-delay: 1.4s;
+        }
+        
+        .koji-glow-medium {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: radial-gradient(circle, rgba(139, 69, 19, 0.18) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: koji-glow 2.2s ease-in-out infinite alternate;
+        }
+        
+        .koji-sparkles-medium {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .koji-sparkle-medium {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: koji-sparkle 2.2s ease-in-out infinite;
+        }
+        
+        .koji-sparkle-medium:nth-child(1) {
+            top: 8px;
+            left: 8px;
+            animation-delay: 0s;
+        }
+        
+        .koji-sparkle-medium:nth-child(2) {
+            top: 15px;
+            right: 8px;
+            animation-delay: 0.7s;
+        }
+        
+        .koji-sparkle-medium:nth-child(3) {
+            bottom: 12px;
+            left: 12px;
+            animation-delay: 1.4s;
+        }
+        
+        /* Confetti Animation Styles */
+        .confetti-container {
+            overflow: hidden;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: confetti-fall 3s ease-out infinite;
+        }
+        
+        .confetti-1 { background: #ff6b6b; left: 10%; animation-delay: 0s; }
+        .confetti-2 { background: #4ecdc4; left: 20%; animation-delay: 0.1s; }
+        .confetti-3 { background: #45b7d1; left: 30%; animation-delay: 0.2s; }
+        .confetti-4 { background: #f9ca24; left: 40%; animation-delay: 0.3s; }
+        .confetti-5 { background: #f0932b; left: 50%; animation-delay: 0.4s; }
+        .confetti-6 { background: #eb4d4b; left: 60%; animation-delay: 0.5s; }
+        .confetti-7 { background: #6c5ce7; left: 70%; animation-delay: 0.6s; }
+        .confetti-8 { background: #a29bfe; left: 80%; animation-delay: 0.7s; }
+        .confetti-9 { background: #fd79a8; left: 90%; animation-delay: 0.8s; }
+        .confetti-10 { background: #00b894; left: 15%; animation-delay: 0.9s; }
+        .confetti-11 { background: #e17055; left: 25%; animation-delay: 1s; }
+        .confetti-12 { background: #0984e3; left: 35%; animation-delay: 1.1s; }
+        .confetti-13 { background: #00cec9; left: 45%; animation-delay: 1.2s; }
+        .confetti-14 { background: #fdcb6e; left: 55%; animation-delay: 1.3s; }
+        .confetti-15 { background: #e84393; left: 65%; animation-delay: 1.4s; }
+        .confetti-16 { background: #2d3436; left: 75%; animation-delay: 1.5s; }
+        .confetti-17 { background: #74b9ff; left: 85%; animation-delay: 1.6s; }
+        .confetti-18 { background: #55a3ff; left: 95%; animation-delay: 1.7s; }
+        .confetti-19 { background: #ff7675; left: 12%; animation-delay: 1.8s; }
+        .confetti-20 { background: #81ecec; left: 88%; animation-delay: 1.9s; }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(400px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Applause Animation */
+        .applause {
+            animation: applause-clap 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes applause-clap {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Celebration Bounce */
+        .celebration-bounce {
+            animation: celebration-bounce 0.6s ease-in-out infinite;
+        }
+        
+        @keyframes celebration-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Tiny Koji Styles */
+        .koji-3d-tiny {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto;
+            position: relative;
+            animation: koji-float 5s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .koji-3d-tiny:hover {
+            transform: scale(1.2);
+        }
+        
+        .koji-3d-tiny:hover .koji-mouth-tiny {
+            animation: koji-hover-smile 0.35s ease-in-out forwards;
+        }
+        
+        .koji-3d-tiny:hover .koji-eye-tiny {
+            animation: koji-blink 0.2s ease-in-out;
+        }
+        
+        .koji-body-tiny {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #D2691E 0%, #F4A460 50%, #FFEFD5 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 3px 6px rgba(139, 69, 19, 0.3),
+                inset -2px -2px 4px rgba(0, 0, 0, 0.2),
+                inset 2px 2px 4px rgba(255, 255, 255, 0.3);
+            animation: koji-bounce 3s ease-in-out infinite;
+        }
+        
+        .koji-eyes-tiny {
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+        }
+        
+        .koji-eye-tiny {
+            width: 3px;
+            height: 3px;
+            background: #000;
+            border-radius: 50%;
+            position: relative;
+            animation: koji-blink 6s infinite;
+        }
+        
+        .koji-eye-tiny::after {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 1px;
+            height: 1px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .koji-mouth-tiny {
+            position: absolute;
+            top: 11px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 3px;
+            border: 1px solid #000;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            animation: koji-smile 4s ease-in-out infinite;
+        }
+        
+        .koji-spots-tiny {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        
+        .koji-spot-tiny {
+            position: absolute;
+            background: rgba(160, 82, 45, 0.6);
+            border-radius: 50%;
+            animation: koji-spots-pulse 3.5s ease-in-out infinite;
+            width: 2px;
+            height: 2px;
+            top: 4px;
+            left: 6px;
+        }
+        
+        .koji-glow-tiny {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: radial-gradient(circle, rgba(139, 69, 19, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: koji-glow 3s ease-in-out infinite alternate;
         }
     </style>
 </head>
@@ -511,6 +1220,13 @@
                             </svg>
                             <span class="menu-text">Profil</span>
                         </a>
+                        
+                        <a href="#" onclick="showCredits()" class="menu-item">
+                            <svg class="menu-icon icon-pink" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span class="menu-text">Künye</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -543,12 +1259,102 @@
                         
                         <!-- Content Container -->
                         <div class="relative z-10 text-center">
-                            <!-- Compact Logo -->
-                            <div class="relative mb-4">
-                                <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto shadow-2xl border border-white/30">
-                                    <svg class="w-8 h-8 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M18 9V7c0-2.21-1.79-4-4-4H8C5.79 3 4 4.79 4 7v2c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-8-4h4c1.1 0 2 .9 2 2v2H8V7c0-1.1.9-2 2-2z"/>
-                                    </svg>
+                            <!-- Multiple 3D Koji Animations -->
+                            <div class="relative flex justify-center items-center mb-4">
+                                <!-- Main Large Koji -->
+                                <div class="koji-3d">
+                                    <div class="koji-glow"></div>
+                                    <div class="koji-body">
+                                        <div class="koji-spots">
+                                            <div class="koji-spot"></div>
+                                            <div class="koji-spot"></div>
+                                            <div class="koji-spot"></div>
+                                            <div class="koji-spot"></div>
+                                        </div>
+                                        <div class="koji-eyes">
+                                            <div class="koji-eye"></div>
+                                            <div class="koji-eye"></div>
+                                        </div>
+                                        <div class="koji-mouth"></div>
+                                    </div>
+                                    <div class="koji-sparkles">
+                                        <div class="koji-sparkle"></div>
+                                        <div class="koji-sparkle"></div>
+                                        <div class="koji-sparkle"></div>
+                                        <div class="koji-sparkle"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Small Koji - Left -->
+                                <div class="koji-3d-small absolute -left-8 top-4" style="animation-delay: 1s;">
+                                    <div class="koji-glow-small"></div>
+                                    <div class="koji-body-small">
+                                        <div class="koji-spots-small">
+                                            <div class="koji-spot-small"></div>
+                                            <div class="koji-spot-small"></div>
+                                        </div>
+                                        <div class="koji-eyes-small">
+                                            <div class="koji-eye-small"></div>
+                                            <div class="koji-eye-small"></div>
+                                        </div>
+                                        <div class="koji-mouth-small"></div>
+                                    </div>
+                                    <div class="koji-sparkles-small">
+                                        <div class="koji-sparkle-small"></div>
+                                        <div class="koji-sparkle-small"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Medium Koji - Right -->
+                                <div class="koji-3d-medium absolute -right-6 -top-2" style="animation-delay: 0.5s;">
+                                    <div class="koji-glow-medium"></div>
+                                    <div class="koji-body-medium">
+                                        <div class="koji-spots-medium">
+                                            <div class="koji-spot-medium"></div>
+                                            <div class="koji-spot-medium"></div>
+                                            <div class="koji-spot-medium"></div>
+                                        </div>
+                                        <div class="koji-eyes-medium">
+                                            <div class="koji-eye-medium"></div>
+                                            <div class="koji-eye-medium"></div>
+                                        </div>
+                                        <div class="koji-mouth-medium"></div>
+                                    </div>
+                                    <div class="koji-sparkles-medium">
+                                        <div class="koji-sparkle-medium"></div>
+                                        <div class="koji-sparkle-medium"></div>
+                                        <div class="koji-sparkle-medium"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Tiny Koji - Top Left -->
+                                <div class="koji-3d-tiny absolute -left-12 -top-6" style="animation-delay: 2s;">
+                                    <div class="koji-glow-tiny"></div>
+                                    <div class="koji-body-tiny">
+                                        <div class="koji-spots-tiny">
+                                            <div class="koji-spot-tiny"></div>
+                                        </div>
+                                        <div class="koji-eyes-tiny">
+                                            <div class="koji-eye-tiny"></div>
+                                            <div class="koji-eye-tiny"></div>
+                                        </div>
+                                        <div class="koji-mouth-tiny"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Tiny Koji - Bottom Right -->
+                                <div class="koji-3d-tiny absolute -right-10 bottom-2" style="animation-delay: 1.5s;">
+                                    <div class="koji-glow-tiny"></div>
+                                    <div class="koji-body-tiny">
+                                        <div class="koji-spots-tiny">
+                                            <div class="koji-spot-tiny"></div>
+                                        </div>
+                                        <div class="koji-eyes-tiny">
+                                            <div class="koji-eye-tiny"></div>
+                                            <div class="koji-eye-tiny"></div>
+                                        </div>
+                                        <div class="koji-mouth-tiny"></div>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -1014,7 +1820,7 @@
                                 </div>
                                 <div class="text-right">
                                     <p class="font-bold text-orange-600">500p</p>
-                                    <button class="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600">Al</button>
+                                    <button onclick="claimReward('Ücretsiz Kahve', 500)" class="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600">Al</button>
                                 </div>
                             </div>
                             
@@ -1030,7 +1836,7 @@
                                 </div>
                                 <div class="text-right">
                                     <p class="font-bold text-green-600">800p</p>
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-600">Al</button>
+                                    <button onclick="claimReward('koji Ürünleri', 800)" class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-600">Al</button>
                                 </div>
                             </div>
                             
@@ -1046,7 +1852,7 @@
                                 </div>
                                 <div class="text-right">
                                     <p class="font-bold text-green-600">1,200p</p>
-                                    <button class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-600">Al</button>
+                                    <button onclick="claimReward('Ağaç Dikimi', 1200)" class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-green-600">Al</button>
                                 </div>
                             </div>
                             
@@ -1528,13 +2334,112 @@
                                         <p class="font-semibold text-sm">Acil Toplama</p>
                                         <p class="text-xs text-gray-500">İhtiyaç halinde 24/7</p>
                                     </div>
-                                    <button class="bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-semibold">Çağır</button>
+                                    <button onclick="callEmergencyPickup()" class="bg-red-500 text-white px-3 py-1 rounded-lg text-sm font-semibold">Çağır</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Credits Screen -->
+                <div id="credits-screen" class="h-full flex-col hidden overflow-hidden">
+                    <div class="bg-gradient-to-br from-pink-600 via-purple-600 to-indigo-600 text-white p-6 pb-8">
+                        <div class="flex items-center mb-4">
+                            <button onclick="showHomeScreen()" class="mr-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </button>
+                            <h1 class="text-xl font-bold elegant-title">Künye</h1>
+                        </div>
+                        <p class="text-pink-200">Proje Bilgileri</p>
+                    </div>
+                    
+                    <div class="flex-1 p-6 -mt-4 overflow-y-auto">
+                        <!-- Developer Info -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                            <div class="text-center mb-6">
+                                <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-3xl text-white">👩‍🔬</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Ayça Adıyaman</h3>
+                                <p class="text-gray-600 font-semibold">Gıda Mühendisi</p>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4 mb-4">
+                                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
+                                    <span class="text-pink-600 mr-2">📋</span>
+                                    Proje Detayları
+                                </h4>
+                                <div class="space-y-2 text-sm text-gray-700">
+                                    <p><strong>Proje Adı:</strong> koji - Atık Ekmek Toplama Uygulaması</p>
+                                    <p><strong>Geliştirme Yılı:</strong> 2025</p>
+                                    <p><strong>Geliştirici:</strong> Gıda Mühendisi Ayça Adıyaman</p>
+                                    <p><strong>Amaç:</strong> Gıda israfını önleme ve sürdürülebilir çevre</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 mb-4">
+                                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
+                                    <span class="text-blue-600 mr-2">🔗</span>
+                                    İletişim
+                                </h4>
+                                <a href="https://www.linkedin.com/in/ayca-adiyaman/" target="_blank" rel="noopener noreferrer" 
+                                   class="flex items-center p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                    <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-semibold">LinkedIn Profili</p>
+                                        <p class="text-sm text-blue-200">Detaylı bilgi ve iletişim için</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Copyright Notice -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-red-600 mr-2">⚖️</span>
+                                Telif Hakları
+                            </h3>
+                            <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+                                <div class="text-sm text-red-800 leading-relaxed">
+                                    <p class="font-semibold mb-2">© 2025 Ayça Adıyaman - Tüm Hakları Saklıdır</p>
+                                    <p class="mb-2">Bu çalışma 2025 yılında Gıda Mühendisi Ayça Adıyaman tarafından yapılmıştır.</p>
+                                    <p class="font-semibold text-red-900">⚠️ İzinsiz kopyalanması ve çoğaltılması yasaktır.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Technical Info -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6">
+                            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <span class="text-purple-600 mr-2">⚙️</span>
+                                Teknik Bilgiler
+                            </h3>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <p class="font-semibold text-gray-700">Frontend</p>
+                                    <p class="text-gray-600">HTML5, CSS3, JavaScript</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <p class="font-semibold text-gray-700">Framework</p>
+                                    <p class="text-gray-600">Tailwind CSS</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <p class="font-semibold text-gray-700">Özellikler</p>
+                                    <p class="text-gray-600">PWA, Responsive</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <p class="font-semibold text-gray-700">Ses API</p>
+                                    <p class="text-gray-600">Web Speech API</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Impact Screen -->
                 <div id="impact-screen" class="h-full flex-col hidden overflow-hidden">
                     <div class="bg-green-600 text-white p-6 pb-8">
@@ -1619,29 +2524,29 @@
         </div>
     </div>
     
-    <!-- Voice Assistant Button -->
-    <div class="voice-assistant" onclick="toggleVoiceAssistant()" title="Sesli Asistan">
-        <svg id="voice-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
-        </svg>
-    </div>
-    
-    <!-- Voice Status Indicator -->
-    <div id="voice-status" class="voice-status">Dinliyorum...</div>
-    
-    <!-- Voice Commands Help -->
-    <div id="voice-help" class="voice-help">
-        <h4>Sesli Komutlar</h4>
-        <ul>
-            <li>"Ana sayfaya git"</li>
-            <li>"Ekmek teslim et"</li>
-            <li>"Geçmişi göster"</li>
-            <li>"Haritayı aç"</li>
-            <li>"Ödülleri göster"</li>
-            <li>"Etkimi göster"</li>
-            <li>"Menüyü aç"</li>
-        </ul>
-    </div>
+            <!-- Voice Assistant Button (Inside Mobile Screen) -->
+            <div class="voice-assistant-mobile" onclick="toggleVoiceAssistant()" title="Sesli Asistan">
+                <svg id="voice-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                </svg>
+            </div>
+            
+            <!-- Voice Status Indicator (Inside Mobile Screen) -->
+            <div id="voice-status" class="voice-status-mobile">Dinliyorum...</div>
+            
+            <!-- Voice Commands Help (Inside Mobile Screen) -->
+            <div id="voice-help" class="voice-help-mobile">
+                <h4>Sesli Komutlar</h4>
+                <ul>
+                    <li>"Ana sayfaya git"</li>
+                    <li>"Ekmek teslim et"</li>
+                    <li>"Geçmişi göster"</li>
+                    <li>"Haritayı aç"</li>
+                    <li>"Ödülleri göster"</li>
+                    <li>"Etkimi göster"</li>
+                    <li>"Menüyü aç"</li>
+                </ul>
+            </div>
 
     <!-- Success Modal -->
     <div id="success-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
@@ -1656,9 +2561,80 @@
         </div>
     </div>
 
+    <!-- Emergency Response Modal -->
+    <div id="emergency-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-2xl p-8 mx-4 text-center max-w-sm relative overflow-hidden">
+            <!-- Pulsing Background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-orange-500/10 animate-pulse"></div>
+            
+            <!-- Modal Content -->
+            <div class="relative z-10">
+                <div class="text-6xl mb-4 animate-bounce">🚨</div>
+                <div class="text-4xl mb-4 animate-pulse">🚚</div>
+                <h3 class="text-2xl font-bold text-red-600 mb-2">Acil Toplama Çağrısı!</h3>
+                <p class="text-gray-700 mb-2 font-semibold">Hemen geliyoruz!</p>
+                <p class="text-red-600 mb-4 font-bold text-lg animate-pulse">YOLDAYIZZZZ! 🏃‍♂️💨</p>
+                <div class="bg-red-50 rounded-xl p-4 mb-4 border border-red-200">
+                    <p class="text-red-700 font-semibold">📍 Konumunuz tespit edildi</p>
+                    <p class="text-sm text-red-600 mt-1">Tahmini varış: <span class="font-bold">8-12 dakika</span></p>
+                    <p class="text-sm text-red-600">Toplayıcı: <span class="font-bold">Mehmet Bey</span></p>
+                </div>
+                <button onclick="closeEmergencyModal()" class="w-full bg-gradient-to-r from-red-500 to-orange-500 text-white py-3 rounded-xl font-semibold hover:from-red-600 hover:to-orange-600 transition-all">
+                    Tamam, Bekliyorum! 🙏
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reward Celebration Modal -->
+    <div id="reward-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-2xl p-8 mx-4 text-center max-w-sm relative overflow-hidden">
+            <!-- Confetti Animation -->
+            <div class="confetti-container absolute inset-0 pointer-events-none">
+                <div class="confetti confetti-1"></div>
+                <div class="confetti confetti-2"></div>
+                <div class="confetti confetti-3"></div>
+                <div class="confetti confetti-4"></div>
+                <div class="confetti confetti-5"></div>
+                <div class="confetti confetti-6"></div>
+                <div class="confetti confetti-7"></div>
+                <div class="confetti confetti-8"></div>
+                <div class="confetti confetti-9"></div>
+                <div class="confetti confetti-10"></div>
+                <div class="confetti confetti-11"></div>
+                <div class="confetti confetti-12"></div>
+                <div class="confetti confetti-13"></div>
+                <div class="confetti confetti-14"></div>
+                <div class="confetti confetti-15"></div>
+                <div class="confetti confetti-16"></div>
+                <div class="confetti confetti-17"></div>
+                <div class="confetti confetti-18"></div>
+                <div class="confetti confetti-19"></div>
+                <div class="confetti confetti-20"></div>
+            </div>
+            
+            <!-- Modal Content -->
+            <div class="relative z-10">
+                <div class="text-6xl mb-4 animate-bounce">🏆</div>
+                <div class="text-4xl mb-4">👏</div>
+                <h3 class="text-2xl font-bold text-purple-600 mb-2">Tebrikler!</h3>
+                <p class="text-gray-700 mb-2 font-semibold" id="reward-name">Ödül Alındı!</p>
+                <p class="text-gray-600 mb-4">Ödülünüz başarıyla hesabınıza eklendi.</p>
+                <div class="bg-purple-50 rounded-xl p-4 mb-4 border border-purple-200">
+                    <p class="text-purple-700 font-semibold" id="reward-points">-500 puan kullanıldı</p>
+                    <p class="text-sm text-purple-600 mt-1">Kalan puan: <span id="remaining-points">2,347</span></p>
+                </div>
+                <button onclick="closeRewardModal()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:from-purple-600 hover:to-pink-600 transition-all">
+                    Harika! 🎉
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Role selection function
         function selectRole(role) {
+            playClickSound();
             if (role === 'business') {
                 showBusinessScreen();
             } else if (role === 'volunteer') {
@@ -1674,6 +2650,7 @@
         }
         
         function showBusinessScreen() {
+            playClickSound();
             hideAllScreens();
             document.getElementById('business-screen').classList.remove('hidden');
             document.getElementById('business-screen').classList.add('flex');
@@ -1681,6 +2658,7 @@
         }
         
         function showHomeScreen() {
+            playClickSound();
             hideAllScreens();
             document.getElementById('home-screen').classList.remove('hidden');
             document.getElementById('home-screen').classList.add('flex');
@@ -1688,6 +2666,7 @@
         }
         
         function showCollectionScreen() {
+            playClickSound();
             hideAllScreens();
             document.getElementById('collection-screen').classList.remove('hidden');
             document.getElementById('collection-screen').classList.add('flex');
@@ -1695,6 +2674,7 @@
         }
         
         function showHistoryScreen() {
+            playClickSound();
             hideAllScreens();
             document.getElementById('history-screen').classList.remove('hidden');
             document.getElementById('history-screen').classList.add('flex');
@@ -1702,6 +2682,7 @@
         }
         
         function showRewardsScreen() {
+            playClickSound();
             hideAllScreens();
             document.getElementById('rewards-screen').classList.remove('hidden');
             document.getElementById('rewards-screen').classList.add('flex');
@@ -1709,6 +2690,7 @@
         }
         
         function showMapScreen() {
+            playClickSound();
             hideAllScreens();
             document.getElementById('map-screen').classList.remove('hidden');
             document.getElementById('map-screen').classList.add('flex');
@@ -1716,14 +2698,23 @@
         }
         
         function showImpactScreen() {
+            playClickSound();
             hideAllScreens();
             document.getElementById('impact-screen').classList.remove('hidden');
             document.getElementById('impact-screen').classList.add('flex');
             updateTabActive('impact');
         }
         
+        function showCredits() {
+            playClickSound();
+            hideAllScreens();
+            document.getElementById('credits-screen').classList.remove('hidden');
+            document.getElementById('credits-screen').classList.add('flex');
+            updateTabActive('credits');
+        }
+        
         function hideAllScreens() {
-            const screens = ['role-screen', 'home-screen', 'business-screen', 'collection-screen', 'history-screen', 'rewards-screen', 'map-screen', 'impact-screen'];
+            const screens = ['role-screen', 'home-screen', 'business-screen', 'collection-screen', 'history-screen', 'rewards-screen', 'map-screen', 'impact-screen', 'credits-screen'];
             screens.forEach(screen => {
                 document.getElementById(screen).classList.add('hidden');
                 document.getElementById(screen).classList.remove('flex');
@@ -1732,18 +2723,22 @@
         
         // Business functions
         function showBreadNotification() {
+            playNotificationFeedback();
             alert('Ekmek hazır bildirimi gönderildi! Gönüllüler bilgilendirilecek.');
         }
         
         function showSchedulePickup() {
+            playClickSound();
             alert('Toplama planlama özelliği yakında eklenecek.');
         }
         
         function showBusinessHistory() {
+            playClickSound();
             alert('İşletme geçmişi özelliği yakında eklenecek.');
         }
         
         function showBusinessSettings() {
+            playClickSound();
             alert('İşletme ayarları özelliği yakında eklenecek.');
         }
         
@@ -1789,15 +2784,18 @@
         
         // Additional menu functions
         function showSettings() {
+            playClickSound();
             alert('Ayarlar sayfası yakında eklenecek.');
         }
         
         function showProfile() {
+            playClickSound();
             alert('Profil sayfası yakında eklenecek.');
         }
         
         // Weight input functions
         function setWeight(weight) {
+            playClickSound();
             document.getElementById('weight-input').value = weight;
             updateExpectedPoints();
         }
@@ -1814,15 +2812,18 @@
             const breadType = document.querySelector('input[name="bread-type"]:checked');
             
             if (!weight || weight <= 0) {
+                playErrorFeedback();
                 alert('Lütfen geçerli bir ağırlık girin.');
                 return;
             }
             
             if (!breadType) {
+                playErrorFeedback();
                 alert('Lütfen ekmek türünü seçin.');
                 return;
             }
             
+            playSuccessFeedback();
             const points = weight * 20;
             document.getElementById('earned-points').textContent = `+${points} puan kazandınız!`;
             document.getElementById('success-modal').classList.remove('hidden');
@@ -1834,8 +2835,170 @@
         }
         
         function closeSuccessModal() {
+            playClickSound();
             document.getElementById('success-modal').classList.add('hidden');
             showHomeScreen();
+        }
+        
+        // Reward claim function
+        function claimReward(rewardName, points) {
+            const currentPoints = 2847; // Current user points
+            
+            if (currentPoints < points) {
+                playErrorFeedback();
+                alert('Yetersiz puan! Bu ödül için daha fazla puana ihtiyacınız var.');
+                return;
+            }
+            
+            // Play celebration sounds and effects
+            playCelebrationFeedback();
+            
+            // Update modal content
+            document.getElementById('reward-name').textContent = rewardName;
+            document.getElementById('reward-points').textContent = `-${points} puan kullanıldı`;
+            document.getElementById('remaining-points').textContent = (currentPoints - points).toLocaleString();
+            
+            // Show celebration modal
+            document.getElementById('reward-modal').classList.remove('hidden');
+            
+            // Add applause animation to the hands emoji
+            setTimeout(() => {
+                const handsEmoji = document.querySelector('#reward-modal .text-4xl');
+                if (handsEmoji) {
+                    handsEmoji.classList.add('applause');
+                }
+            }, 500);
+            
+            // Add celebration bounce to trophy
+            setTimeout(() => {
+                const trophy = document.querySelector('#reward-modal .text-6xl');
+                if (trophy) {
+                    trophy.classList.add('celebration-bounce');
+                }
+            }, 1000);
+        }
+        
+        function closeRewardModal() {
+            playClickSound();
+            document.getElementById('reward-modal').classList.add('hidden');
+            
+            // Remove animation classes
+            const handsEmoji = document.querySelector('#reward-modal .text-4xl');
+            const trophy = document.querySelector('#reward-modal .text-6xl');
+            
+            if (handsEmoji) handsEmoji.classList.remove('applause');
+            if (trophy) trophy.classList.remove('celebration-bounce');
+        }
+        
+        // Enhanced celebration feedback with applause sound
+        function playCelebrationFeedback() {
+            if (!audioContext) return;
+            
+            // Play applause-like sound effect
+            playApplauseSound();
+            
+            // Celebration vibration pattern
+            vibrate([200, 100, 200, 100, 300, 150, 300]);
+        }
+        
+        // Emergency pickup call function
+        function callEmergencyPickup() {
+            playEmergencyFeedback();
+            document.getElementById('emergency-modal').classList.remove('hidden');
+            
+            // Play emergency siren sound
+            playEmergencySiren();
+        }
+        
+        function closeEmergencyModal() {
+            playClickSound();
+            document.getElementById('emergency-modal').classList.add('hidden');
+        }
+        
+        // Emergency feedback with siren sound and strong vibration
+        function playEmergencyFeedback() {
+            // Strong emergency vibration pattern
+            vibrate([300, 100, 300, 100, 300, 100, 500, 200, 500]);
+        }
+        
+        function playEmergencySiren() {
+            if (!audioContext) return;
+            
+            // Create emergency siren sound
+            const sirenDuration = 2000; // 2 seconds
+            const startTime = audioContext.currentTime;
+            
+            // Create oscillating siren sound
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    // Siren frequency sweep
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.3);
+                    oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.6);
+                    
+                    oscillator.type = 'sawtooth';
+                    
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.6);
+                }, i * 400);
+            }
+            
+            // Add urgent beeps
+            setTimeout(() => {
+                for (let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        playBeep(1000, 100);
+                    }, i * 150);
+                }
+            }, 1600);
+        }
+        
+        function playApplauseSound() {
+            if (!audioContext) return;
+            
+            // Create applause-like sound with multiple frequencies
+            const frequencies = [400, 600, 800, 1000, 1200];
+            
+            frequencies.forEach((freq, index) => {
+                setTimeout(() => {
+                    // Create multiple overlapping sounds for applause effect
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(() => {
+                            const oscillator = audioContext.createOscillator();
+                            const gainNode = audioContext.createGain();
+                            
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioContext.destination);
+                            
+                            oscillator.frequency.value = freq + (Math.random() * 100 - 50);
+                            oscillator.type = 'sawtooth';
+                            
+                            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                            
+                            oscillator.start(audioContext.currentTime);
+                            oscillator.stop(audioContext.currentTime + 0.3);
+                        }, i * 50);
+                    }
+                }, index * 200);
+            });
+            
+            // Add celebration melody
+            setTimeout(() => {
+                const celebrationNotes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                celebrationNotes.forEach((freq, index) => {
+                    setTimeout(() => playBeep(freq, 300), index * 200);
+                });
+            }, 1000);
         }
         
         // Weight input event listener
@@ -1843,6 +3006,7 @@
         
         // Side menu toggle function
         function toggleSideMenu() {
+            playClickSound();
             const sideMenu = document.getElementById('side-menu');
             const burgerMenu = document.querySelector('.burger-menu');
             
@@ -1866,6 +3030,112 @@
         let recognition = null;
         let voiceTimeout = null;
         let helpTimeout = null;
+        
+        // Sound Effects and Vibration
+        const sounds = {
+            click: () => playBeep(800, 100),
+            success: () => playSuccessSound(),
+            notification: () => playNotificationSound(),
+            error: () => playErrorSound(),
+            voice: () => playVoiceSound()
+        };
+        
+        // Audio Context for sound effects
+        let audioContext = null;
+        
+        function initAudio() {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            } catch (e) {
+                console.log('Web Audio API desteklenmiyor');
+            }
+        }
+        
+        function playBeep(frequency, duration) {
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration / 1000);
+        }
+        
+        function playSuccessSound() {
+            if (!audioContext) return;
+            
+            // Happy ascending notes
+            const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+            notes.forEach((freq, index) => {
+                setTimeout(() => playBeep(freq, 200), index * 150);
+            });
+        }
+        
+        function playNotificationSound() {
+            if (!audioContext) return;
+            
+            // Two-tone notification
+            playBeep(800, 150);
+            setTimeout(() => playBeep(600, 150), 200);
+        }
+        
+        function playErrorSound() {
+            if (!audioContext) return;
+            
+            // Descending error sound
+            playBeep(400, 300);
+            setTimeout(() => playBeep(300, 300), 200);
+        }
+        
+        function playVoiceSound() {
+            if (!audioContext) return;
+            
+            // Voice activation sound
+            playBeep(1000, 100);
+            setTimeout(() => playBeep(1200, 100), 150);
+        }
+        
+        // Vibration function
+        function vibrate(pattern) {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(pattern);
+            }
+        }
+        
+        // Enhanced feedback functions
+        function playClickSound() {
+            sounds.click();
+            vibrate(50); // Short vibration
+        }
+        
+        function playSuccessFeedback() {
+            sounds.success();
+            vibrate([100, 50, 100]); // Success pattern
+        }
+        
+        function playNotificationFeedback() {
+            sounds.notification();
+            vibrate([200, 100, 200]); // Notification pattern
+        }
+        
+        function playErrorFeedback() {
+            sounds.error();
+            vibrate([300, 100, 300, 100, 300]); // Error pattern
+        }
+        
+        function playVoiceFeedback() {
+            sounds.voice();
+            vibrate(100); // Voice activation
+        }
         
         // Initialize Speech Recognition
         function initVoiceAssistant() {
@@ -1907,6 +3177,7 @@
         // Toggle Voice Assistant
         function toggleVoiceAssistant() {
             if (!recognition) {
+                playErrorFeedback();
                 alert('Tarayıcınız ses tanımayı desteklemiyor. Chrome veya Edge kullanmayı deneyin.');
                 return;
             }
@@ -1914,6 +3185,7 @@
             if (isListening) {
                 stopListening();
             } else {
+                playVoiceFeedback();
                 startListening();
             }
         }
@@ -1923,7 +3195,7 @@
             if (!recognition) return;
             
             isListening = true;
-            const voiceButton = document.querySelector('.voice-assistant');
+            const voiceButton = document.querySelector('.voice-assistant-mobile');
             const voiceIcon = document.getElementById('voice-icon');
             
             voiceButton.classList.add('listening');
@@ -1949,7 +3221,7 @@
         // Stop Listening
         function stopListening() {
             isListening = false;
-            const voiceButton = document.querySelector('.voice-assistant');
+            const voiceButton = document.querySelector('.voice-assistant-mobile');
             const voiceIcon = document.getElementById('voice-icon');
             
             voiceButton.classList.remove('listening', 'processing');
@@ -1965,7 +3237,7 @@
         
         // Process Voice Commands
         function processVoiceCommand(command) {
-            const voiceButton = document.querySelector('.voice-assistant');
+            const voiceButton = document.querySelector('.voice-assistant-mobile');
             const voiceIcon = document.getElementById('voice-icon');
             
             // Show processing state
@@ -2086,7 +3358,7 @@
         // Hide Voice Help on click outside
         document.addEventListener('click', function(event) {
             const help = document.getElementById('voice-help');
-            const voiceButton = document.querySelector('.voice-assistant');
+            const voiceButton = document.querySelector('.voice-assistant-mobile');
             
             if (!help.contains(event.target) && !voiceButton.contains(event.target)) {
                 help.classList.remove('show');
@@ -2097,8 +3369,9 @@
         });
         
         // Initialize app
+        initAudio();
         initVoiceAssistant();
         showRoleScreen();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9834e530742cc660',t:'MTc1ODU3NjU0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9834ffa1e2a1c660',t:'MTc1ODU3NzYyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
